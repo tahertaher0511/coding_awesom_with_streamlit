@@ -1,0 +1,34 @@
+{% assign contact = site.data[page.data].contact %}
+<!-- Contact Start -->
+<section id="contact" class="contact container content-section text-center">
+
+  <div id="contact-content" class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <h3>{{ contact.title }}</h3>
+      <p>{{ contact.content }}</p>
+    </div>
+  </div>
+
+  <div id="contact-blocks" class="row">
+    <div class="col-lg-10 col-lg-offset-1 text-center">
+      {% for block in contact.blocks %}
+      {% assign column_width = 12 | divided_by: forloop.length %}
+      <div class="col-md-{{ column_width }} col-sm-4 col-xs-12 col-center">
+        <h5>{{ block.title }}</h5>
+        <ul>
+          {% for link_element in block.links %}
+          <li><a href="{% if link_element.permalink != null %} {{ link_element.permalink | prepend: site.baseurl }} {% else %} {{ link_element.link }} {% endif %}" {% if link_element.link != null %}target="_blank"{% endif %}>{{ link_element.text }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div id="contact-links" class="row">
+    <div class="col-md-10 col-md-offset-1">
+      {% include social-buttons.html %}
+    </div>
+  </div>
+</section>
+<!-- Contact End -->
